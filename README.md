@@ -135,24 +135,6 @@ plt.show()
 
 <H3>Output:</H3>
 <img width="862" height="779" alt="Screenshot 2026-08-18 113457" src="https://github.com/user-attachments/assets/d75e1927-db66-4d9d-a6d9-98fd6dac15f4" />
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
+
 <H3> Result:</H3>
 Thus, XOR classification problem can be solved using MLP in Python 
-.
-.
-.
-.
-.
-...
