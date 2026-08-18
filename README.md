@@ -1,7 +1,7 @@
-<H3>ENTER YOUR NAME</H3>
-<H3>ENTER YOUR REGISTER NO.</H3>
+<H3>ENTER YOUR NAME:RAMYA L</H3>
+<H3>ENTER YOUR REGISTER NO.:212225040330</H3>
 <H3>EX. NO.3</H3>
-<H3>DATE:</H3>
+<H3>DATE:18/08/26</H3>
 <H2 aligh = center> Implementation of MLP for a non-linearly separable data</H2>
 <h3>Aim:</h3>
 To implement a perceptron for classification using Python
@@ -36,11 +36,105 @@ Step 3: Repeat the  iteration  until the losses become constant and  minimum<BR>
 Step 4 : Test for the XOR patterns.
 
 <H3>Program:</H3>
-Insert your code here
+
+```
+import numpy as np
+import matplotlib.pyplot as plt
+
+# XOR input
+X = np.array([
+    [0, 0],
+    [0, 1],
+    [1, 0],
+    [1, 1]
+], dtype=float)
+
+# Desired output
+Y = np.array([
+    [0],
+    [1],
+    [1],
+    [0]
+], dtype=float)
+
+# Initialize weights
+np.random.seed(3)
+
+W1 = np.random.randn(2, 2) * 2
+b1 = np.zeros((1, 2))
+
+W2 = np.random.randn(2, 1) * 2
+b2 = np.zeros((1, 1))
+
+learning_rate = 1
+epochs = 10000
+
+losses = []
+
+
+# Sigmoid function
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+
+# Training
+for epoch in range(epochs):
+
+    # -------- Forward Pass --------
+    hidden = sigmoid(np.dot(X, W1) + b1)
+    output = sigmoid(np.dot(hidden, W2) + b2)
+
+    # -------- Loss --------
+    loss = np.mean((Y - output) ** 2)
+    losses.append(loss)
+
+    # -------- Backpropagation --------
+    error = output - Y
+
+    d_output = error * output * (1 - output)
+
+    dW2 = np.dot(hidden.T, d_output)
+    db2 = np.sum(d_output, axis=0, keepdims=True)
+
+    hidden_error = np.dot(d_output, W2.T)
+    d_hidden = hidden_error * hidden * (1 - hidden)
+
+    dW1 = np.dot(X.T, d_hidden)
+    db1 = np.sum(d_hidden, axis=0, keepdims=True)
+
+    # -------- Update weights --------
+    W2 = W2 - learning_rate * dW2
+    b2 = b2 - learning_rate * db2
+
+    W1 = W1 - learning_rate * dW1
+    b1 = b1 - learning_rate * db1
+
+
+# -------- Testing --------
+
+hidden = sigmoid(np.dot(X, W1) + b1)
+output = sigmoid(np.dot(hidden, W2) + b2)
+
+print("Input Output")
+
+for i in range(len(X)):
+    predicted = int(output[i][0] >= 0.5)
+    print(X[i].astype(int), predicted)
+
+
+# -------- Loss Graph --------
+
+plt.plot(losses)
+
+plt.xlabel("EPOCHS")
+plt.ylabel("Loss value")
+plt.title("Loss vs Epochs")
+
+plt.show()
+```
 
 <H3>Output:</H3>
-
-Show your results here
+<img width="862" height="779" alt="Screenshot 2026-08-18 113457" src="https://github.com/user-attachments/assets/d75e1927-db66-4d9d-a6d9-98fd6dac15f4" />
 
 <H3> Result:</H3>
 Thus, XOR classification problem can be solved using MLP in Python 
